@@ -17,7 +17,9 @@
 </body>
 </html>
 <script type="text/javascript">
-    var id = window.location.href;
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    
     async function pega() {
         var urll = 'https://servicos.cref18.org.br/home/PegaConvites/1';
 
