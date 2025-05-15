@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -74,7 +75,8 @@
 <body>
     <div class="container">
         <img src="https://miltinho30.github.io/meus_60_anos/Aniversari.jpg" alt="Convite" onclick="pega()">
-        <button onclick="pega()">Verificar Presença</button>
+        <br> Podemos contar com voçê?<br><br>
+        <button onclick="pega(1)">sim</button><br><br><button onclick="pega(0)">não</button>
         <label id="mm"></label>
     </div>
 
@@ -82,21 +84,29 @@
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
 
-        async function pega() {
+        async function pega(param) {
             const label = document.getElementById('mm');
             if (!id) {
                 label.textContent = "ID não fornecido na URL.";
                 return;
             }
 
-            const urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id;
+            const urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id + '&param=' + param;
+            //const urll = 'http://localhost:52713/home/PegaConvites?id=' + id+'&param='+param;
 
             try {
                 const response = await fetch(urll);
                 const data = await response.json();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    label.innerHTML = `${data[0].nome}<br>Acompanhantes: ${data[0].acompanhantes || 'Nenhum'} <br>Você está confirmado!`;
+                   
+                    if (param == 1) {
+                        label.innerHTML = `${data[0].nome}<br>Acompanhantes: ${data[0].acompanhantes || 'Nenhum'} <br>Você está confirmado!`;
+                        alert('Obrigado por confirmar, estaremos lhe esperando!');
+                    } else if (param == 0) {
+                        label.innerHTML = `${data[0].nome}<br>Acompanhantes: ${data[0].acompanhantes || 'Nenhum'} <br>Seu convite está cancelado!`;
+                        alert('Que pena!\nObrigado por avisar!\nDa proxima vez, quem sabe, né.')
+                    }
                 } else {
                     label.textContent = "Nenhum convite encontrado.";
                 }
