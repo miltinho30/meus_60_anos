@@ -1,17 +1,27 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <meta name="keywords" content="palavra-chave1, palavra-chave2, seu nicho">
-    <meta name="robots" content="index, follow">
-    <meta property="og:image" content="https://miltinho30.github.io/meus_60_anos/aniversario.png">
-    <meta property="fb:app_id" content="966242223397117">
+    <meta charset="UTF-8">
+    <title>Convite de Aniversário</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- SEO -->
+    <meta name="keywords" content="palavra-chave1, palavra-chave2, seu nicho">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Convite de Aniversário de 60 anos!">
+    <meta property="og:description" content="Você está convidado para um evento muito especial.">
+    <meta property="og:image" content="https://miltinho30.github.io/meus_60_anos/aniversario.png">
+    <meta property="og:url" content="https://miltinho30.github.io/meus_60_anos/">
+    <meta property="og:type" content="website">
+    <meta property="fb:app_id" content="966242223397117">
 </head>
+
 <body>
     <img style="width:50%;" onclick="pega()" src="https://miltinho30.github.io/meus_60_anos/aniversario.png">
     <button onclick="pega()">
-        Teste
+        Confirme sua participação
     </button>
     <label id="mm"></label>
 </body>
@@ -25,8 +35,6 @@
 
     async function pega() {
         var urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id;
-        alert(id);
-        alert(urll);
         const label = document.createElement('label');
         document.body.appendChild(label);
 
