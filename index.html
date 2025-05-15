@@ -6,7 +6,7 @@
     <meta property="og:image" content="https://miltinho30.github.io/meus_60_anos/aniversario.png">
     <meta property="fb:app_id" content="966242223397117">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
 </head>
 <body>
     <img style="width:50%;" onclick="pega()" src="https://miltinho30.github.io/meus_60_anos/aniversario.png">
@@ -21,11 +21,12 @@
     const id = params.get('id');
     const principal = '';
     const convidado = '';
-    
-    
-    async function pega() {
-        var urll = 'https://servicos.cref18.org.br/home/PegaConvites?id='+id;
 
+
+    async function pega() {
+        var urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id;
+        alert(id);
+        alert(urll);
         const label = document.createElement('label');
         document.body.appendChild(label);
 
@@ -36,7 +37,8 @@
         } catch (error) {
             label.textContent = "Erro ao buscar dados: " + error;
         }
-         
-  
+    }
+
+
 
 </script>
