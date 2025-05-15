@@ -32,7 +32,7 @@
         try {
             const response = await fetch(urll); // URL do seu backend
             const data = await response.json();
-            label.textContent = 'Prezado '+JSON.stringify(data.nome);
+            label.textContent = JSON.stringify(data);
         } catch (error) {
             label.textContent = "Erro ao buscar dados: " + error;
         }
