@@ -6,47 +6,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO -->
-    <meta name="keywords" content="palavra-chave1, palavra-chave2, seu nicho">
+    <meta name="keywords" content="convite, aniversário, 60 anos">
     <meta name="robots" content="index, follow">
 
-    <!-- Open Graph -->
+    <!-- Open Graph para redes sociais -->
     <meta property="og:title" content="Convite de Aniversário de 60 anos!">
     <meta property="og:description" content="Você está convidado para um evento muito especial.">
     <meta property="og:image" content="https://miltinho30.github.io/meus_60_anos/aniversario.png">
     <meta property="og:url" content="https://miltinho30.github.io/meus_60_anos/">
     <meta property="og:type" content="website">
     <meta property="fb:app_id" content="966242223397117">
+
+    <!-- Estilo -->
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+            max-width: 150px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #mm {
+            display: block;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
 </head>
 
 <body>
-    <img style="width:50%;" onclick="pega()" src="https://miltinho30.github.io/meus_60_anos/aniversario.png">
-    <button onclick="pega()">
-        Confirme sua participação
-    </button>
-    <label id="mm"></label>
+    <div class="container">
+        <img src="https://miltinho30.github.io/meus_60_anos/aniversario.png" alt="Convite" onclick="pega()">
+        <button onclick="pega()">Verificar Presença</button>
+        <label id="mm"></label>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+
+        async function pega() {
+            const label = document.getElementById('mm');
+            if (!id) {
+                label.textContent = "ID não fornecido na URL.";
+                return;
+            }
+
+            const urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id;
+
+            try {
+                const response = await fetch(urll);
+                const data = await response.json();
+
+                if (Array.isArray(data) && data.length > 0) {
+                    label.textContent = `${data[0].nome} - Acompanhantes: ${data[0].acompanhantes || 'Nenhum'}`;
+                } else {
+                    label.textContent = "Nenhum convite encontrado.";
+                }
+            } catch (error) {
+                label.textContent = "Erro ao buscar dados: " + error.message;
+            }
+        }
+    </script>
 </body>
 </html>
-<script type="text/javascript">
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    const principal = '';
-    const convidado = '';
-
-
-    async function pega() {
-        var urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id;
-        const label = document.createElement('label');
-        document.body.appendChild(label);
-
-        try {
-            const response = await fetch(urll); // URL do seu backend
-            const data = await response.json();
-            label.textContent = JSON.stringify(data);
-        } catch (error) {
-            label.textContent = "Erro ao buscar dados: " + error;
-        }
-    }
-
-
-
-</script>
