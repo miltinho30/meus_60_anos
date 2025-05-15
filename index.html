@@ -58,9 +58,9 @@
             width: 100%;
         }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+            button:hover {
+                background-color: #0056b3;
+            }
 
         #mm {
             display: block;
@@ -96,7 +96,7 @@
                 const data = await response.json();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    label.textContent = `${data[0].nome} - Acompanhantes: ${data[0].acompanhantes || 'Nenhum'}`;
+                    label.innerHTML = `${data[0].nome}<br>Acompanhantes: ${data[0].acompanhantes || 'Nenhum'} <br>Você está confirmado!`;
                 } else {
                     label.textContent = "Nenhum convite encontrado.";
                 }
