@@ -21,7 +21,7 @@
     const id = params.get('id');
     
     async function pega() {
-        var urll = 'https://servicos.cref18.org.br/home/PegaConvites/1';
+        var urll = 'https://servicos.cref18.org.br/home/PegaConvites/'+id;
 
         const label = document.createElement('label');
         document.body.appendChild(label);
@@ -33,7 +33,7 @@
         } catch (error) {
             label.textContent = "Erro ao buscar dados: " + error;
         }
-          label.textContent = id;
+         // label.textContent = id;
     }
   
 
