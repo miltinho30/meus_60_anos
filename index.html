@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -92,7 +91,7 @@
             }
 
             const urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id + '&param=' + param;
-            //const urll = 'http://localhost:52713/home/PegaConvites?id=' + id+'&param='+param;
+            //const urll = 'http://localhost:52713/home/PegaConvites?id=' + id + '&param=' + param;
 
             try {
                 const response = await fetch(urll);
@@ -101,12 +100,12 @@
                 //alert(acompanhantes);
 
                 if (Array.isArray(data) && data.length > 0) {
-                    if (acompanhantes !='') { 
+                    if (acompanhantes != '') {
                         acompanhantes = `<br>Acompanhantes: ${data[0].acompanhantes}`;
                     } else {
                         acompanhantes = ` `;
                     }
-                   
+
                     if (param == 1) {
                         label.innerHTML = `${data[0].nome}  ${acompanhantes} <br>Você está confirmado!`;
                         alert('Obrigado por confirmar, estaremos lhe esperando!');
@@ -120,7 +119,7 @@
             } catch (error) {
                 label.textContent = "Erro ao buscar dados: " + error.message;
             }
-
+        }
             async function pega2(param) {
                 const label = document.getElementById('mm');
                 if (!id) {
@@ -151,8 +150,9 @@
                 } catch (error) {
                     label.textContent = "Erro ao buscar dados: " + error.message;
                 }
-            pega2(3)
+                
         }
+        pega2(3);
     </script>
 </body>
 </html>
