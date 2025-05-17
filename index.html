@@ -97,14 +97,21 @@
             try {
                 const response = await fetch(urll);
                 const data = await response.json();
+                var acompanhantes = `${data[0].acompanhantes}`;
+                //alert(acompanhantes);
 
                 if (Array.isArray(data) && data.length > 0) {
+                    if (acompanhantes !='') { 
+                        acompanhantes = `<br>Acompanhantes: ${data[0].acompanhantes}`;
+                    } else {
+                        acompanhantes = ` `;
+                    }
                    
                     if (param == 1) {
-                        label.innerHTML = `${data[0].nome}<br>Acompanhantes: ${data[0].acompanhantes || 'Nenhum'} <br>Você está confirmado!`;
+                        label.innerHTML = `${data[0].nome}  ${acompanhantes} <br>Você está confirmado!`;
                         alert('Obrigado por confirmar, estaremos lhe esperando!');
                     } else if (param == 0) {
-                        label.innerHTML = `${data[0].nome}<br>Acompanhantes: ${data[0].acompanhantes || 'Nenhum'} <br>Seu convite está cancelado!`;
+                        label.innerHTML = `${data[0].nome} e ${acompanhantes} <br>Seu convite está cancelado!`;
                         alert('Que pena!\nObrigado por avisar!\nDa proxima vez, quem sabe, né.')
                     }
                 } else {
@@ -113,6 +120,38 @@
             } catch (error) {
                 label.textContent = "Erro ao buscar dados: " + error.message;
             }
+
+            async function pega2(param) {
+                const label = document.getElementById('mm');
+                if (!id) {
+                    label.textContent = "ID não fornecido na URL.";
+                    return;
+                }
+
+                const urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id + '&param=' + param;
+                //const urll = 'http://localhost:52713/home/PegaConvites?id=' + id+'&param='+param;
+
+                try {
+                    const response = await fetch(urll);
+                    const data = await response.json();
+                    var acompanhantes = `${data[0].acompanhantes}`;
+                    //alert(acompanhantes);
+
+                    if (Array.isArray(data) && data.length > 0) {
+                        if (acompanhantes != '') {
+                            acompanhantes = `<br>Acompanhantes: ${data[0].acompanhantes}`;
+                        } else {
+                            acompanhantes = ` `;
+                        }  
+                            label.innerHTML = `${data[0].nome}  ${acompanhantes} <br>Confirme sua Predença!`;
+                                
+                    } else {
+                        label.textContent = "Nenhum convite encontrado.";
+                    }
+                } catch (error) {
+                    label.textContent = "Erro ao buscar dados: " + error.message;
+                }
+            pega2(3)
         }
     </script>
 </body>
