@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -148,11 +149,19 @@
                             return;
                         } else if (id1 == 1) {
                             //alert(id1);
-                            label.innerHTML = `Você já confirmou sua presença!<br><br>Data: 24 de maio de 2025<br>Local: Nicolas Recepções<br>Horário: 22:00h<br><br>Estamos lhe esperando!<br><br>Mas se não puder ir, clique no botão Cancelar!`;
+                            label.innerHTML = `${data[0].nome} <br>Você já confirmou sua presença!<br><br>Data: 24 de maio de 2025<br>Local: Nicolas Recepções<br>Horário: 22:00h<br><br>Estamos lhe esperando!<br><br>Mas se não puder ir, clique no botão Cancelar!`;
                             document.getElementById('sim').style.display = 'none';
                             document.getElementById('lbl1').style.display = 'none';
                             document.getElementById('nao').innerText = 'Cancelar';
-                        }             
+                        }
+                        else if (id1 == 0) {
+                            //alert(id1);
+                            label.innerHTML = `${data[0].nome} <br>Seu Convite está cancelado!`;
+                            document.getElementById('sim').style.display = 'none';
+                            document.getElementById('sim').style.display = 'none';
+                            document.getElementById('lbl1').style.display = 'none';
+                            document.getElementById('nao').style.display = 'none';
+                        }
                                 
                     } else {
                         label.textContent = "Nenhum convite encontrado.";
