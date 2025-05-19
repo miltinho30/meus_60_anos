@@ -73,31 +73,32 @@
 
 <body>
     <div class="container">
-        <img src="https://miltinho30.github.io/meus_60_anos/Aniversari.jpg" alt="Convite" onclick="pega()">
-        <br> Podemos contar com voçê?<br><br>
-        <button onclick="pega(1)">sim</button><br><br><button onclick="pega(0)">não</button>
+        <img src="https://miltinho30.github.io/meus_60_anos/Aniversari.jpg" alt="Convite" >
+        <label id="lbl1"> Podemos contar com voçê?</label><br>
+        <button id="sim" onclick="pega(1)">sim</button><br><br><button id="nao" onclick="pega(0)">não</button>
         <label id="mm"></label>
     </div>
 
     <script>
+        
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
+        
 
         async function pega(param) {
+            const urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id + '&param=' + param;
+            //const urll = 'http://localhost:52713/home/PegaConvites?id=' + id+'&param='+param;
             const label = document.getElementById('mm');
             if (!id) {
                 label.textContent = "ID não fornecido na URL.";
                 return;
             }
 
-            const urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id + '&param=' + param;
-            //const urll = 'http://localhost:52713/home/PegaConvites?id=' + id + '&param=' + param;
 
             try {
                 const response = await fetch(urll);
                 const data = await response.json();
                 var acompanhantes = `${data[0].acompanhantes}`;
-                //alert(acompanhantes);
 
                 if (Array.isArray(data) && data.length > 0) {
                     if (acompanhantes != '') {
@@ -120,21 +121,18 @@
                 label.textContent = "Erro ao buscar dados: " + error.message;
             }
         }
-            async function pega2(param) {
+        async function pega2(param) {
+             const urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id + '&param=' + param;
+            //const urll = 'http://localhost:52713/home/PegaConvites?id=' + id+'&param='+param;
                 const label = document.getElementById('mm');
-                if (!id) {
-                    label.textContent = "ID não fornecido na URL.";
-                    return;
-                }
-
-                const urll = 'https://servicos.cref18.org.br/home/PegaConvites?id=' + id + '&param=' + param;
-                //const urll = 'http://localhost:52713/home/PegaConvites?id=' + id+'&param='+param;
+               
 
                 try {
                     const response = await fetch(urll);
                     const data = await response.json();
                     var acompanhantes = `${data[0].acompanhantes}`;
-                    //alert(acompanhantes);
+                    var id1 = `${data[0].confirmar}`;
+                    //alert(id1);
 
                     if (Array.isArray(data) && data.length > 0) {
                         if (acompanhantes != '') {
@@ -142,7 +140,19 @@
                         } else {
                             acompanhantes = ` `;
                         }  
-                            label.innerHTML = `${data[0].nome}  ${acompanhantes} <br>Confirme sua Predença!`;
+                        label.innerHTML = `${data[0].nome}  ${acompanhantes} <br>Confirme sua Predença!`;
+
+
+                        if (!id1) {
+                            label.textContent = "Voçê não foi convidado.";
+                            return;
+                        } else if (id1 == 1) {
+                            //alert(id1);
+                            label.innerHTML = `Você já confirmou sua presença!<br><br>Data: 24 de maio de 2025<br>Local: Nicolas Recepções<br>Horário: 22:00h<br><br>Estamos lhe esperando!<br><br>Mas se não puder ir, clique no botão Cancelar!`;
+                            document.getElementById('sim').style.display = 'none';
+                            document.getElementById('lbl1').style.display = 'none';
+                            document.getElementById('nao').innerText = 'Cancelar';
+                        }             
                                 
                     } else {
                         label.textContent = "Nenhum convite encontrado.";
